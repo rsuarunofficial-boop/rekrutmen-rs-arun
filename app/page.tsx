@@ -85,33 +85,8 @@ export default function Home() {
 
       if (!response.ok) throw new Error(result.error || 'Gagal mengirim formulir.');
       
+      // Langsung arahkan ke UI pendaftaran berhasil tanpa memicu jendela cetak dokumen
       setSukses(true);
-
-      // =========================================================
-      // PROSES STRATEGIS: GENERATE DAN DOWNLOAD BUKTI FORMULIR
-      // =========================================================
-      try {
-        const resFormulir = await fetch('/api/download-formulir', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(form),
-        });
-
-        if (resFormulir.ok) {
-          const htmlText = await resFormulir.text();
-          const cetakWindow = window.open('', '_blank');
-          if (cetakWindow) {
-            cetakWindow.document.write(htmlText);
-            cetakWindow.document.close();
-            cetakWindow.focus();
-            setTimeout(() => {
-              cetakWindow.print();
-            }, 500);
-          }
-        }
-      } catch (printErr) {
-        console.error('Gagal memicu jendela cetak dokumen:', printErr);
-      }
 
     } catch (err: any) {
       setErrorMsg(err.message || 'Terjadi kesalahan sistem.');
@@ -204,7 +179,7 @@ export default function Home() {
             </div>
           </div>
 
-          {/* SEKSI C (BARU) */}
+          {/* SEKSI C */}
           <div className="space-y-4">
             <h2 className="text-sm font-bold text-emerald-700 border-b border-emerald-100 pb-1">C. POSISI YANG DILAMAR</h2>
             <div>
@@ -221,6 +196,7 @@ export default function Home() {
               <p className="text-[11px] text-slate-400 mt-1">Sistem otomatis mengunci opsi pada formasi Staf Keuangan di gelombang rekrutmen ini.</p>
             </div>
           </div>
+
           {/* SEKSI D */}
           <div className="space-y-4">
             <h2 className="text-sm font-bold text-emerald-700 border-b border-emerald-100 pb-1">D. PENGALAMAN KERJA</h2>
@@ -300,7 +276,7 @@ export default function Home() {
 }
 
 // ========================================================
-// 2. DI SINI KUNCINYA: PINDAHKAN SUB-KOMPONEN KE LUAR
+// 2. SUB-KOMPONEN DI LUAR AREA UTAMA
 // ========================================================
 function InputField({ label, name, formValue, onChange, type = 'text', required = true, placeholder = '' }: InputFieldProps) {
   return (
