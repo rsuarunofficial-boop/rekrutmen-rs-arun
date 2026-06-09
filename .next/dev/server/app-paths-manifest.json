@@ -1,6 +1,4 @@
 {
   "/admin/page": "app/admin/page.js",
-  "/api/download-formulir/route": "app/api/download-formulir/route.js",
-  "/api/upload/route": "app/api/upload/route.js",
   "/page": "app/page.js"
 }
