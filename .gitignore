@@ -39,3 +39,7 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Mengabaikan file pelamar agar tidak masuk ke GitHub
+/public/uploads/*
+!.gitkeep
