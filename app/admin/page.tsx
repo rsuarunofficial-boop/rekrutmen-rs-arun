@@ -55,7 +55,10 @@ export default function AdminDashboard() {
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
   const [filterPosisi, setFilterPosisi] = useState('');
+  const [pageSize, setPageSize] = useState(10);
+  const [currentPage, setCurrentPage] = useState(1);
   const [selectedPelamar, setSelectedPelamar] = useState<Pelamar | null>(null); // State untuk detail modal
+  const [stats, setStats] = useState({ total: 0, lolos: 0, tolak: 0, pending: 0 });
   const router = useRouter();
 
   const fetchDataPelamar = async () => {
@@ -67,6 +70,12 @@ export default function AdminDashboard() {
 
     if (!error && data) {
       setListPelamar(data);
+      // Hitung statistik
+      const total = data.length;
+      const lolos = data.filter(p => p.status === 'Lolos').length;
+      const tolak = data.filter(p => p.status === 'Tolak').length;
+      const pending = data.filter(p => p.status === 'Pending').length;
+      setStats({ total, lolos, tolak, pending });
     }
     setLoading(false);
   };
@@ -112,6 +121,17 @@ export default function AdminDashboard() {
     return matchSearch && matchPosisi;
   });
 
+  const pageCount = Math.max(1, Math.ceil(filteredPelamar.length / pageSize));
+  const paginatedPelamar = filteredPelamar.slice((currentPage - 1) * pageSize, currentPage * pageSize);
+  const firstItem = filteredPelamar.length === 0 ? 0 : (currentPage - 1) * pageSize + 1;
+  const lastItem = Math.min(filteredPelamar.length, currentPage * pageSize);
+
+  useEffect(() => {
+    if (currentPage > pageCount) {
+      setCurrentPage(pageCount);
+    }
+  }, [currentPage, pageCount]);
+
   return (
     <div className="min-h-screen bg-slate-50 text-slate-800 p-4 sm:p-8 relative">
       <div className="max-w-7xl mx-auto space-y-6">
@@ -140,6 +160,57 @@ export default function AdminDashboard() {
           </div>
         </div>
 
+        {/* Statistik Cards */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          {/* Total Pelamar */}
+          <div className="bg-white rounded-2xl border border-slate-200/80 shadow-sm p-6 space-y-2">
+            <div className="flex items-center justify-between">
+              <p className="text-xs font-semibold text-slate-400 uppercase tracking-wider">Jumlah Pelamar</p>
+              <div className="bg-blue-100 p-2.5 rounded-lg">
+                <User className="w-5 h-5 text-blue-600" />
+              </div>
+            </div>
+            <p className="text-3xl font-bold text-slate-900">{stats.total}</p>
+            <p className="text-xs text-slate-400">Total pendaftar</p>
+          </div>
+
+          {/* Lulus Administrasi */}
+          <div className="bg-white rounded-2xl border border-slate-200/80 shadow-sm p-6 space-y-2">
+            <div className="flex items-center justify-between">
+              <p className="text-xs font-semibold text-slate-400 uppercase tracking-wider">Lulus Administrasi</p>
+              <div className="bg-emerald-100 p-2.5 rounded-lg">
+                <Check className="w-5 h-5 text-emerald-600" />
+              </div>
+            </div>
+            <p className="text-3xl font-bold text-slate-900">{stats.lolos}</p>
+            <p className="text-xs text-slate-400">Berkas valid</p>
+          </div>
+
+          {/* Tidak Lulus Administrasi */}
+          <div className="bg-white rounded-2xl border border-slate-200/80 shadow-sm p-6 space-y-2">
+            <div className="flex items-center justify-between">
+              <p className="text-xs font-semibold text-slate-400 uppercase tracking-wider">Tidak Lulus Administrasi</p>
+              <div className="bg-rose-100 p-2.5 rounded-lg">
+                <X className="w-5 h-5 text-rose-600" />
+              </div>
+            </div>
+            <p className="text-3xl font-bold text-slate-900">{stats.tolak}</p>
+            <p className="text-xs text-slate-400">Berkas ditolak</p>
+          </div>
+
+          {/* Proses Evaluasi */}
+          <div className="bg-white rounded-2xl border border-slate-200/80 shadow-sm p-6 space-y-2">
+            <div className="flex items-center justify-between">
+              <p className="text-xs font-semibold text-slate-400 uppercase tracking-wider">Proses Evaluasi</p>
+              <div className="bg-amber-100 p-2.5 rounded-lg">
+                <Clock className="w-5 h-5 text-amber-600" />
+              </div>
+            </div>
+            <p className="text-3xl font-bold text-slate-900">{stats.pending}</p>
+            <p className="text-xs text-slate-400">Sedang dievaluasi</p>
+          </div>
+        </div>
+
         {/* Filter & Kontrol Cari */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div className="relative">
@@ -148,7 +219,10 @@ export default function AdminDashboard() {
               type="text"
               placeholder="Cari Nama, NIK, atau Email pelamar..."
               value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
+              onChange={(e) => {
+                setSearchTerm(e.target.value);
+                setCurrentPage(1);
+              }}
               className="w-full pl-10 pr-4 py-2 bg-white border border-slate-200 rounded-xl text-sm focus:outline-none focus:border-emerald-500 transition shadow-sm"
             />
           </div>
@@ -156,7 +230,10 @@ export default function AdminDashboard() {
             <Briefcase className="absolute left-3 top-3 h-4 w-4 text-slate-400" />
             <select
               value={filterPosisi}
-              onChange={(e) => setFilterPosisi(e.target.value)}
+              onChange={(e) => {
+                setFilterPosisi(e.target.value);
+                setCurrentPage(1);
+              }}
               className="w-full pl-10 pr-4 py-2 bg-white border border-slate-200 rounded-xl text-sm focus:outline-none focus:border-emerald-500 transition shadow-sm appearance-none"
             >
               <option value="">Semua Jenjang Pendidikan Terakhir</option>
@@ -178,6 +255,7 @@ export default function AdminDashboard() {
               <table className="w-full text-left border-collapse">
                 <thead>
                   <tr className="bg-slate-50/70 border-b border-slate-200/60 text-slate-400 text-[11px] font-bold uppercase tracking-wider">
+                    <th className="py-4 px-6">No</th>
                     <th className="py-4 px-6">Pelamar</th>
                     <th className="py-4 px-6">Pendidikan / IPK</th>
                     <th className="py-4 px-6">Pengalaman Kerja</th>
@@ -186,8 +264,11 @@ export default function AdminDashboard() {
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-slate-100 text-sm">
-                  {filteredPelamar.map((p) => (
+                  {paginatedPelamar.map((p, index) => (
                     <tr key={p.id} className="hover:bg-slate-50/50 transition duration-100">
+                      <td className="py-4 px-6">
+                        <span className="font-semibold text-slate-600">{firstItem + index}</span>
+                      </td>
                       <td className="py-4 px-6">
                         <div className="font-semibold text-slate-900">{p.nama_lengkap}</div>
                         <div className="text-slate-400 text-xs mt-0.5">NIK: {p.nik} • WA: {p.whatsapp}</div>
@@ -224,6 +305,43 @@ export default function AdminDashboard() {
                   ))}
                 </tbody>
               </table>
+              <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between p-4 border-t border-slate-200/80 bg-slate-50">
+                <div className="flex items-center gap-2 text-slate-600 text-xs">
+                  <span>Tampilkan</span>
+                  <select
+                    value={pageSize}
+                    onChange={(e) => {
+                      setPageSize(Number(e.target.value));
+                      setCurrentPage(1);
+                    }}
+                    className="rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm text-slate-700 shadow-sm focus:border-emerald-500 focus:outline-none"
+                  >
+                    <option value={10}>10</option>
+                    <option value={50}>50</option>
+                    <option value={100}>100</option>
+                  </select>
+                  <span>data per halaman</span>
+                </div>
+                <div className="flex flex-col gap-2 sm:flex-row sm:items-center text-slate-500 text-xs">
+                  <span>{firstItem}-{lastItem} dari {filteredPelamar.length} data</span>
+                  <button
+                    type="button"
+                    onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+                    disabled={currentPage === 1}
+                    className="rounded-xl border border-slate-200 bg-white px-3 py-2 text-xs font-semibold text-slate-700 transition disabled:cursor-not-allowed disabled:bg-slate-100 disabled:text-slate-400 hover:bg-slate-50"
+                  >
+                    Sebelumnya
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setCurrentPage((prev) => Math.min(prev + 1, pageCount))}
+                    disabled={currentPage === pageCount}
+                    className="rounded-xl border border-slate-200 bg-slate-900 px-3 py-2 text-xs font-semibold text-white transition disabled:cursor-not-allowed disabled:bg-slate-400 hover:bg-slate-800"
+                  >
+                    Selanjutnya
+                  </button>
+                </div>
+              </div>
             </div>
           )}
         </div>
