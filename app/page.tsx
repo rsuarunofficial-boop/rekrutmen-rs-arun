@@ -86,7 +86,7 @@ export default function LandingPage() {
             <div className="space-y-1.5">
               <span className="bg-slate-100 text-slate-600 px-2.5 py-0.5 rounded-md text-[10px] font-bold uppercase tracking-wider">Non-Medis</span>
               <h4 className="font-bold text-slate-900 text-base">Staf Keuangan</h4>
-              <p className="text-xs text-slate-400 max-w-xl leading-relaxed">Kualifikasi: Minimal D3/S1 Keuangan/Akuntansi/Ekonomi. Menguasai pelaporan keuangan, perpajakan, dan mahir mengoperasikan Microsoft Excel.</p>
+              <p className="text-xs text-slate-400 max-w-xl leading-relaxed">Kualifikasi: Minimal Strata Satu (S1) Akuntansi. Menguasai pelaporan keuangan, perpajakan, dan mahir mengoperasikan Aplikasi pengelolaan keuangan.</p>
             </div>
             <Link 
               href="/pendaftaran" 
