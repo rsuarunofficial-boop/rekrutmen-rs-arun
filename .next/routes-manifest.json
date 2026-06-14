@@ -70,6 +70,12 @@
       "regex": "^/favicon\\.ico(?:/)?$",
       "routeKeys": {},
       "namedRegex": "^/favicon\\.ico(?:/)?$"
+    },
+    {
+      "page": "/pendaftaran",
+      "regex": "^/pendaftaran(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/pendaftaran(?:/)?$"
     }
   ],
   "dataRoutes": [],

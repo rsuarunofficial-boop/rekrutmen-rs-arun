@@ -1,25 +1,22 @@
-{"timestamp":"00:00:02.770","source":"Server","level":"LOG","message":""}
-{"timestamp":"00:00:43.635","source":"Browser","level":"INFO","message":"%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold"}
-{"timestamp":"00:00:47.082","source":"Browser","level":"INFO","message":"%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold"}
-{"timestamp":"00:05:10.093","source":"Server","level":"LOG","message":"✓ Compiled in 219ms"}
-{"timestamp":"00:05:12.670","source":"Server","level":"LOG","message":"✓ Compiled in 54ms"}
-{"timestamp":"00:05:28.857","source":"Server","level":"LOG","message":"✓ Compiled in 34ms"}
-{"timestamp":"00:12:19.647","source":"Server","level":"LOG","message":"✓ Compiled in 110ms"}
-{"timestamp":"00:12:22.512","source":"Server","level":"LOG","message":"✓ Compiled in 99ms"}
-{"timestamp":"00:12:31.090","source":"Server","level":"LOG","message":"✓ Compiled in 238ms"}
-{"timestamp":"00:13:24.197","source":"Browser","level":"INFO","message":"%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold"}
-{"timestamp":"00:14:34.434","source":"Browser","level":"INFO","message":"%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold"}
-{"timestamp":"00:14:39.260","source":"Browser","level":"INFO","message":"%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold"}
-{"timestamp":"00:30:14.119","source":"Server","level":"LOG","message":"✓ Compiled in 81ms"}
-{"timestamp":"00:30:30.124","source":"Browser","level":"INFO","message":"%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold"}
-{"timestamp":"00:50:36.090","source":"Server","level":"LOG","message":"✓ Compiled in 86ms"}
-{"timestamp":"00:50:36.309","source":"Browser","level":"ERROR","message":"uncaughtError: ReferenceError: pageSize is not defined"}
-{"timestamp":"00:50:36.486","source":"Server","level":"ERROR","message":"[browser] \"\\u001b[31mUncaught ReferenceError: pageSize is not defined\\u001b[39m\\n\\u001b[31m    at AdminDashboard (app/admin/page.tsx:122:68)\\u001b[39m\\n  \\u001b[90m120 |\\u001b[0m ...\\n  \\u001b[90m121 |\\u001b[0m ...\\n\\u001b[31m\\u001b[1m>\\u001b[0m \\u001b[90m122 |\\u001b[0m ...ax(\\u001b[35m1\\u001b[0m, \\u001b[33mMath\\u001b[0m.ceil(filteredPelamar.length / pageSize));\\n  \\u001b[90m    |\\u001b[0m                                             \\u001b[31m\\u001b[1m^\\u001b[0m\\n  \\u001b[90m123 |\\u001b[0m ... filteredPelamar.slice((currentPage - \\u001b[35m1\\u001b[0m) * pageSize, currentPage * pageSize);\\n  \\u001b[90m124 |\\u001b[0m ...edPelamar.length === \\u001b[35m0\\u001b[0m ? \\u001b[35m0\\u001b[0m : (currentPage - \\u001b[35m1\\u001b[0m) * pageSize + \\u001b[35m1\\u001b[0m;\\n  \\u001b[90m125 |\\u001b[0m ...n(filteredPelamar.length, currentPage * pageSize);\""}
-{"timestamp":"00:50:36.487","source":"Browser","level":"ERROR","message":"\u001b[31mUncaught ReferenceError: pageSize is not defined\u001b[39m\n\u001b[31m    at AdminDashboard (app/admin/page.tsx:122:68)\u001b[39m\n  \u001b[90m120 |\u001b[0m ...\n  \u001b[90m121 |\u001b[0m ...\n\u001b[31m\u001b[1m>\u001b[0m \u001b[90m122 |\u001b[0m ...ax(\u001b[35m1\u001b[0m, \u001b[33mMath\u001b[0m.ceil(filteredPelamar.length / pageSize));\n  \u001b[90m    |\u001b[0m                                             \u001b[31m\u001b[1m^\u001b[0m\n  \u001b[90m123 |\u001b[0m ... filteredPelamar.slice((currentPage - \u001b[35m1\u001b[0m) * pageSize, currentPage * pageSize);\n  \u001b[90m124 |\u001b[0m ...edPelamar.length === \u001b[35m0\u001b[0m ? \u001b[35m0\u001b[0m : (currentPage - \u001b[35m1\u001b[0m) * pageSize + \u001b[35m1\u001b[0m;\n  \u001b[90m125 |\u001b[0m ...n(filteredPelamar.length, currentPage * pageSize);"}
-{"timestamp":"00:50:54.994","source":"Server","level":"LOG","message":"✓ Compiled in 153ms"}
-{"timestamp":"00:50:55.267","source":"Browser","level":"INFO","message":"%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold"}
-{"timestamp":"00:51:09.681","source":"Server","level":"LOG","message":"✓ Compiled in 56ms"}
-{"timestamp":"00:51:13.705","source":"Server","level":"LOG","message":"✓ Compiled in 51ms"}
-{"timestamp":"00:51:22.692","source":"Server","level":"LOG","message":"✓ Compiled in 52ms"}
-{"timestamp":"00:51:33.062","source":"Server","level":"LOG","message":"✓ Compiled in 81ms"}
-{"timestamp":"00:54:05.414","source":"Browser","level":"INFO","message":"%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold"}
+{"timestamp":"00:00:01.826","source":"Server","level":"LOG","message":""}
+{"timestamp":"00:00:17.424","source":"Browser","level":"INFO","message":"%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold"}
+{"timestamp":"00:06:44.541","source":"Server","level":"ERROR","message":"⨯ Error: The default export is not a React Component in \"/page\""}
+{"timestamp":"00:06:44.750","source":"Server","level":"ERROR","message":"⨯ Error: The default export is not a React Component in \"/page\""}
+{"timestamp":"00:06:45.078","source":"Server","level":"ERROR","message":"⨯ Error: The default export is not a React Component in \"/page\""}
+{"timestamp":"00:06:45.301","source":"Server","level":"ERROR","message":"⨯ Error: The default export is not a React Component in \"/page\""}
+{"timestamp":"00:06:47.731","source":"Browser","level":"ERROR","message":"uncaughtError: Error: The default export is not a React Component in \"/page\""}
+{"timestamp":"00:06:48.753","source":"Server","level":"ERROR","message":"[browser] \"\\u001b[31mUncaught Error: The default export is not a React Component in \\\"/page\\\"\\u001b[39m\""}
+{"timestamp":"00:06:48.754","source":"Browser","level":"ERROR","message":"\u001b[31mUncaught Error: The default export is not a React Component in \"/page\"\u001b[39m"}
+{"timestamp":"00:07:32.509","source":"Browser","level":"INFO","message":"%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold"}
+{"timestamp":"00:14:05.017","source":"Server","level":"LOG","message":"✓ Compiled in 71ms"}
+{"timestamp":"00:14:30.579","source":"Server","level":"LOG","message":"✓ Compiled in 28ms"}
+{"timestamp":"00:14:47.422","source":"Browser","level":"INFO","message":"%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold"}
+{"timestamp":"00:15:17.433","source":"Server","level":"LOG","message":"✓ Compiled in 27ms"}
+{"timestamp":"00:18:25.193","source":"Browser","level":"INFO","message":"%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold"}
+{"timestamp":"00:19:55.155","source":"Server","level":"LOG","message":"✓ Compiled in 45ms"}
+{"timestamp":"00:20:02.122","source":"Browser","level":"INFO","message":"%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold"}
+{"timestamp":"00:22:27.950","source":"Server","level":"LOG","message":"✓ Compiled in 28ms"}
+{"timestamp":"00:22:33.589","source":"Browser","level":"INFO","message":"%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold"}
+{"timestamp":"00:22:48.150","source":"Server","level":"LOG","message":"✓ Compiled in 24ms"}
+{"timestamp":"00:22:54.737","source":"Browser","level":"INFO","message":"%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold"}
+{"timestamp":"00:22:56.233","source":"Browser","level":"INFO","message":"%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold"}

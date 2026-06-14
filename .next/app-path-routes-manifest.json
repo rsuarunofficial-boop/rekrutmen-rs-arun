@@ -6,5 +6,6 @@
   "/api/download-formulir/route": "/api/download-formulir",
   "/api/upload/route": "/api/upload",
   "/favicon.ico/route": "/favicon.ico",
-  "/page": "/"
+  "/page": "/",
+  "/pendaftaran/page": "/pendaftaran"
 }

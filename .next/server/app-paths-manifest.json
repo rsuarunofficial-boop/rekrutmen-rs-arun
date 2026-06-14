@@ -6,5 +6,6 @@
   "/api/download-formulir/route": "app/api/download-formulir/route.js",
   "/api/upload/route": "app/api/upload/route.js",
   "/favicon.ico/route": "app/favicon.ico/route.js",
-  "/page": "app/page.js"
+  "/page": "app/page.js",
+  "/pendaftaran/page": "app/pendaftaran/page.js"
 }
