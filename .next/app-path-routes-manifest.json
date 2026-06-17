@@ -1,0 +1,13 @@
+{
+  "/_global-error/page": "/_global-error",
+  "/_not-found/page": "/_not-found",
+  "/admin/login/page": "/admin/login",
+  "/admin/page": "/admin",
+  "/api/cek-kelulusan/route": "/api/cek-kelulusan",
+  "/api/download-formulir/route": "/api/download-formulir",
+  "/api/upload/route": "/api/upload",
+  "/cek-status/page": "/cek-status",
+  "/favicon.ico/route": "/favicon.ico",
+  "/page": "/",
+  "/pendaftaran/page": "/pendaftaran"
+}
