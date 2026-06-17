@@ -229,8 +229,8 @@ Jalan Batam Kampus Bukit Indah, Muara Satu, Kota Lhokseumawe, Aceh.</span>
                         <ol className="list-decimal pl-4 space-y-0.5">
                           <li>Wajib hadir di lokasi ujian paling lambat 30 menit sebelum jadwal dimulai.</li>
                           <li>Wajib membawa <b>KTP Asli</b> dan Lembar Kartu Ujian ini secara utuh (tidak dipotong mandiri).</li>
-                          <li>Berpakaian kemeja putih polos rapi, celana/rok kain panjang hitam formal, dan bersepatu.</li>
-                          <li>Dilarang keras membawa alat bantu hitung (kalkulator), buku catatan, maupun senjata dalam bentuk apapun.</li>
+                          <li>Berpakaian Rapi, Sopan, dan bersepatu.</li>
+                          <li>Dilarang keras membawa alat bantu hitung (kalkulator), buku catatan, maupun benda tajam.</li>
                         </ol>
                       </div>
                     </div>
