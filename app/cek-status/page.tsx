@@ -28,7 +28,7 @@ export default function CekStatus() {
     setHasil(null);
 
     try {
-      // Kita panggil API internal Next.js
+      // Panggil API internal Next.js
       const response = await fetch('/api/cek-kelulusan', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -54,12 +54,9 @@ export default function CekStatus() {
     window.print();
   };
 
-  // Generator Nomor Peserta Otomatis (Mengambil 6 digit terakhir NIK secara aman)
+  // Generator Nomor Peserta Otomatis
   const getNomorPeserta = (nik: string | undefined | null) => {
-    // Jika nik tidak ada, kosong, atau undefined, berikan fallback string agar tidak memicu crash runtime
     if (!nik) return '02-FA/RSA/2026-000000';
-
-    // Ambil 6 digit terakhir dengan proteksi panjang karakter string
     const ekor = nik.length >= 6 ? nik.slice(-6) : nik.padStart(6, '0');
     return `02-FA/RSA/2026-${ekor}`;
   };
@@ -92,14 +89,14 @@ export default function CekStatus() {
             <form onSubmit={handleCekStatus} className="space-y-3">
               <div className="relative">
                 <input 
-                    type="text" 
-                    maxLength={16}
-                    required
-                    placeholder="Contoh: 1101xxxxxxxxxxxx"
-                    value={nikInput}
-                    onChange={(e) => setNikInput(e.target.value.replace(/\D/g, ''))} 
-                    className="w-full pl-4 pr-12 py-3 bg-slate-50 border border-slate-200 rounded-2xl text-sm font-semibold tracking-wider focus:outline-none focus:border-emerald-500 text-slate-900 transition shadow-inner"
-                    />
+                  type="text" 
+                  maxLength={16}
+                  required
+                  placeholder="Contoh: 1101xxxxxxxxxxxx"
+                  value={nikInput}
+                  onChange={(e) => setNikInput(e.target.value.replace(/\D/g, ''))} 
+                  className="w-full pl-4 pr-12 py-3 bg-slate-50 border border-slate-200 rounded-2xl text-sm font-semibold tracking-wider focus:outline-none focus:border-emerald-500 text-slate-900 transition shadow-inner"
+                />
                 <button 
                   type="submit" 
                   disabled={loading}
@@ -125,7 +122,7 @@ export default function CekStatus() {
               {/* KONDISI TAHAP 1: LOLOS ADMINISTRASI */}
               {hasil.status_seleksi === 'STAGE_1_LOLOS' && (
                 <>
-                  {/* Komponen Tampilan Web Anda yang Lama - SEMBUNYI SAAT CETAK */}
+                  {/* Komponen Tampilan Web - SEMBUNYI SAAT CETAK */}
                   <div className="bg-white border-2 border-emerald-500 rounded-3xl shadow-md overflow-hidden print:hidden">
                     <div className="bg-emerald-600 p-4 text-white flex items-center gap-3">
                       <CheckCircle2 className="w-6 h-6 shrink-0" />
@@ -149,15 +146,13 @@ export default function CekStatus() {
                         </div>
                         <div className="flex items-start gap-2">
                           <MapPin className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
-                          <span><b>Lokasi:</b> Universitas Malikussaleh (UNIMAL), Gedung Informatika:
-Jalan Batam Kampus Bukit Indah, Muara Satu, Kota Lhokseumawe, Aceh.</span>
+                          <span><b>Lokasi:</b> Universitas Malikussaleh (UNIMAL), Gedung Informatika: Jalan Batam Kampus Bukit Indah, Muara Satu, Kota Lhokseumawe, Aceh.</span>
                         </div>
                       </div>
                       <p className="text-[11px] text-amber-600 font-medium bg-amber-50 p-2.5 rounded-xl border border-amber-100">
                         *Catatan: Harap membawa KTP asli dan berpakaian kemeja putih rapi saat menghadiri ujian.
                       </p>
 
-                      {/* Tombol Cetak - Diletakkan di dalam card respon web agar rapi */}
                       <div className="pt-2 flex justify-end">
                         <button
                           onClick={handlePrint}
@@ -169,17 +164,15 @@ Jalan Batam Kampus Bukit Indah, Muara Satu, Kota Lhokseumawe, Aceh.</span>
                     </div>
                   </div>
 
-                  {/* AREA STRUKTUR KARTU CETAKAN - TERSEMBUNYI DI WEB, MUNCUL UTAL KETIKA DI-PRINT */}
+                  {/* STRUKTUR KARTU CETAKAN */}
                   <div className="hidden print:flex bg-white w-[210mm] min-h-[297mm] mx-auto flex-col justify-between p-0 text-slate-900">
                     
                     {/* BAGIAN 1: KARTU PESERTA (ATAS) */}
                     <div className="border-2 border-slate-900 p-6 rounded-2xl relative flex flex-col justify-between min-h-[135mm]">
-                      {/* Logo Transparan Background (Watermark) */}
                       <div className="absolute inset-0 flex items-center justify-center opacity-[0.03] pointer-events-none">
                         <img src="/logo-rsarun.svg" alt="watermark" className="w-72 h-72 object-contain" />
                       </div>
 
-                      {/* Header Kartu */}
                       <div className="flex items-center gap-4 border-b-2 border-slate-900 pb-3">
                         <img src="/logo-rsarun.svg" alt="Logo RS Arun" className="h-12 w-auto object-contain" />
                         <div>
@@ -189,7 +182,6 @@ Jalan Batam Kampus Bukit Indah, Muara Satu, Kota Lhokseumawe, Aceh.</span>
                         </div>
                       </div>
 
-                      {/* Baris Identitas & QR */}
                       <div className="grid grid-cols-3 gap-4 my-4 items-center">
                         <div className="col-span-2 space-y-2 text-xs">
                           <div className="grid grid-cols-3">
@@ -216,14 +208,12 @@ Jalan Batam Kampus Bukit Indah, Muara Satu, Kota Lhokseumawe, Aceh.</span>
                         </div>
                       </div>
 
-                      {/* Detail Pelaksanaan */}
                       <div className="bg-slate-50 p-3 rounded-xl border border-slate-200 text-xs space-y-1">
                         <div><b>Hari / Tanggal:</b> Jumat, 19 Juni 2026</div>
                         <div><b>Waktu / Pukul:</b> 09:00 WIB s.d Selesai</div>
                         <div><b>Lokasi Ujian:</b> Universitas Malikussaleh (UNIMAL), Gedung Informatika: Jalan Batam Kampus Bukit Indah, Muara Satu, Kota Lhokseumawe, Aceh.</div>
                       </div>
 
-                      {/* Instruksi Tata Tertib */}
                       <div className="mt-4 pt-2 border-t border-slate-200 text-[10px] text-slate-600 leading-normal">
                         <p className="font-bold text-slate-900 mb-1 uppercase text-[10px]">Tata Tertib Peserta Ujian Tulis:</p>
                         <ol className="list-decimal pl-4 space-y-0.5">
@@ -248,7 +238,6 @@ Jalan Batam Kampus Bukit Indah, Muara Satu, Kota Lhokseumawe, Aceh.</span>
                         <img src="/logo-rsarun.svg" alt="watermark" className="w-72 h-72 object-contain" />
                       </div>
 
-                      {/* Header Lembar Panitia */}
                       <div className="flex items-center gap-4 border-b-2 border-slate-900 pb-3">
                         <img src="/logo-rsarun.svg" alt="Logo RS Arun" className="h-10 w-auto object-contain" />
                         <div>
@@ -258,7 +247,6 @@ Jalan Batam Kampus Bukit Indah, Muara Satu, Kota Lhokseumawe, Aceh.</span>
                         </div>
                       </div>
 
-                      {/* Baris Identitas & QR */}
                       <div className="grid grid-cols-3 gap-4 my-4 items-center">
                         <div className="col-span-2 space-y-2 text-xs">
                           <div className="grid grid-cols-3">
@@ -285,7 +273,6 @@ Jalan Batam Kampus Bukit Indah, Muara Satu, Kota Lhokseumawe, Aceh.</span>
                         </div>
                       </div>
 
-                      {/* Kotak Validasi Tanda Tangan Fisik */}
                       <div className="grid grid-cols-2 gap-8 mt-4 pt-6 border-t border-slate-200 text-xs text-center">
                         <div className="space-y-14">
                           <p className="text-slate-500 font-medium text-[10px]">Tanda Tangan Pelamar<br /><span className="text-[9px] text-slate-400">(Diteken di depan panitia registrasi)</span></p>
@@ -317,6 +304,67 @@ Jalan Batam Kampus Bukit Indah, Muara Satu, Kota Lhokseumawe, Aceh.</span>
                       Terima kasih atas partisipasi Saudara/i <b>{hasil.nama_lengkap}</b>. Setelah dilakukan verifikasi berkas, dokumen Anda dinyatakan belum memenuhi kualifikasi formasi Staf Keuangan RS Arun Lhokseumawe pada gelombang seleksi kali ini.
                     </p>
                     <p className="text-[11px] text-slate-400 italic">Tetap semangat dan sukses untuk karir Anda di kesempatan lain.</p>
+                  </div>
+                </div>
+              )}
+
+              {/* ========================================== */}
+              {/* KONDISI BARU TAHAP 2: LOLOS UJIAN CAT / CBT */}
+              {/* ========================================== */}
+              {hasil.status_seleksi === 'STAGE_2_LOLOS' && (
+                <div className="bg-white border-2 border-emerald-500 rounded-3xl shadow-md overflow-hidden print:hidden">
+                  <div className="bg-emerald-600 p-4 text-white flex items-center gap-3">
+                    <CheckCircle2 className="w-6 h-6 shrink-0" />
+                    <div>
+                      <p className="text-[10px] text-emerald-100 font-bold uppercase tracking-wider">Hasil Ujian CAT (Computer Assisted Test)</p>
+                      <h3 className="font-extrabold text-sm sm:text-base uppercase leading-none mt-0.5">Selamat, Anda Lulus Tahap Ujian Tulis (CAT)</h3>
+                    </div>
+                  </div>
+                  <div className="p-6 space-y-4">
+                    <div className="text-xs bg-slate-50 p-3 rounded-xl border border-slate-100">
+                      <p className="text-slate-400 font-medium">Nama Pelamar:</p>
+                      <p className="font-bold text-slate-900 text-sm">{hasil.nama_lengkap}</p>
+                    </div>
+                    <p className="text-xs text-slate-600 leading-relaxed">
+                      Nilai kompetensi CAT Anda telah memenuhi kriteria kelulusan. Anda resmi diundang untuk mengikuti tahapan seleksi berikutnya, yaitu <b>Wawancara Kompetensi Utama & Pemaparan Alur Kerja</b> yang akan dilaksanakan secara luring.
+                    </p>
+                    <div className="space-y-2.5 bg-emerald-50/50 p-4 rounded-2xl border border-emerald-100/50 text-xs text-slate-700">
+                      <div className="flex items-start gap-2">
+                        <Calendar className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
+                        <span><b>Hari / Jadwal Wawancara:</b> Informasi mendetail mengenai tanggal, pembagian sesi, dan ruang tunggu wawancara akan dikirimkan oleh HRD secara berkala ke alamat email aktif atau WhatsApp Anda.</span>
+                      </div>
+                      <div className="flex items-start gap-2">
+                        <MapPin className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
+                        <span><b>Lokasi:</b> Ruang Pertemuan Rumah Sakit Arun Lhokseumawe</span>
+                      </div>
+                    </div>
+                    <p className="text-[11px] text-amber-600 font-medium bg-amber-50 p-2.5 rounded-xl border border-amber-100">
+                      *Catatan: Harap membawa kembali dokumen asli (Ijazah, Transkrip Nilai, & KTP) serta wajib menggunakan seragam kemeja putih kain gelap saat wawancara.
+                    </p>
+                  </div>
+                </div>
+              )}
+
+              {/* ========================================== */}
+              {/* KONDISI BARU TAHAP 2: GUGUR UJIAN CAT / CBT */}
+              {/* ========================================== */}
+              {hasil.status_seleksi === 'STAGE_2_GUGUR' && (
+                <div className="bg-white border border-slate-200 rounded-3xl shadow-sm overflow-hidden print:hidden">
+                  <div className="bg-slate-900 p-4 text-white flex items-center gap-3">
+                    <XCircle className="w-6 h-6 text-rose-500 shrink-0" />
+                    <div>
+                      <p className="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Hasil Ujian CAT (Computer Assisted Test)</p>
+                      <h3 className="font-extrabold text-sm sm:text-base uppercase leading-none mt-0.5">Hasil Seleksi Belum Lulus</h3>
+                    </div>
+                  </div>
+                  <div className="p-6 text-center space-y-3">
+                    <p className="text-xs text-slate-500 max-w-sm mx-auto leading-relaxed">
+                      Terima kasih atas perjuangan dan partisipasi Saudara/i <b>{hasil.nama_lengkap}</b> pada Ujian Tulis CAT Rekrutmen Staf Keuangan RS Arun Lhokseumawe. 
+                    </p>
+                    <p className="text-xs text-slate-500 max-w-sm mx-auto leading-relaxed">
+                      Berdasarkan hasil pemeringkatan nilai akumulatif ujian komputer, kualifikasi Anda belum memenuhi batas ambang nilai kelulusan formasi pada tahapan ini.
+                    </p>
+                    <p className="text-[11px] text-slate-400 italic pt-2">Manajemen RS Arun sangat menghargai waktu dan kompetensi yang telah Anda tunjukkan. Sukses selalu untuk karir profesional Anda di masa mendatang.</p>
                   </div>
                 </div>
               )}
