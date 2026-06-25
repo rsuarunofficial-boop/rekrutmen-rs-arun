@@ -48,6 +48,7 @@ interface Pelamar {
   file_surat_pengalaman: string | null;
   file_npwp: string | null;
   status: string;
+  status_seleksi: string;
 }
 
 export default function AdminDashboard() {
@@ -119,7 +120,9 @@ export default function AdminDashboard() {
                         p.nik.includes(searchTerm) ||
                         p.email.toLowerCase().includes(searchTerm.toLowerCase());
     const matchPosisi = filterPosisi === '' || p.pendidikan_terakhir.toLowerCase().includes(filterPosisi.toLowerCase());
-    const matchStatus = filterStatus === '' || p.status === filterStatus;
+    const matchStatus =
+      filterStatus === '' ||
+      (filterStatus === 'STAGE_2_LOLOS' ? p.status_seleksi === 'STAGE_2_LOLOS' : p.status === filterStatus);
     return matchSearch && matchPosisi && matchStatus;
   });
 
@@ -258,6 +261,7 @@ export default function AdminDashboard() {
               <option value="Lolos">Berkas Valid</option>
               <option value="Tolak">Ditolak</option>
               <option value="Pending">Evaluasi</option>
+              <option value="STAGE_2_LOLOS">Lulus CAT</option>
             </select>
           </div>
         </div>
