@@ -369,6 +369,63 @@ export default function CekStatus() {
                 </div>
               )}
 
+              {/* ========================================== */}
+              {/* KONDISI FINAL TAHAP 3: DITERIMA BEKERJA (LOLOS) */}
+              {/* ========================================== */}
+              {hasil.status_seleksi === 'STAGE_3_LOLOS' && (
+                <div className="bg-white border-4 border-emerald-600 rounded-3xl shadow-xl overflow-hidden print:hidden animate-in zoom-in-95 duration-300">
+                  <div className="bg-gradient-to-r from-emerald-600 to-teal-600 p-5 text-white flex items-center gap-4">
+                    <CheckCircle2 className="w-8 h-8 shrink-0 text-white animate-bounce" />
+                    <div>
+                      <p className="text-[10px] text-emerald-100 font-bold uppercase tracking-wider">Pengumuman Hasil Akhir (Final)</p>
+                      <h3 className="font-black text-base sm:text-lg uppercase leading-none mt-1">Selamat! Anda Diterima Resmi</h3>
+                    </div>
+                  </div>
+                  <div className="p-6 space-y-4">
+                    <div className="text-xs bg-slate-50 p-4 rounded-xl border border-slate-100 space-y-1">
+                      <p className="text-slate-400 font-medium">Nama Karyawan Baru:</p>
+                      <p className="font-black text-slate-900 text-base uppercase">{hasil.nama_lengkap}</p>
+                      <p className="text-[11px] text-emerald-700 font-bold">Formasi: Staf Keuangan RS Arun Lhokseumawe</p>
+                    </div>
+                    <p className="text-xs text-slate-600 leading-relaxed font-medium">
+                      Manajemen dan Seluruh Civitas Hospitalia <b>Rumah Sakit Arun Lhokseumawe</b> mengucapkan selamat atas keberhasilan Anda menyelesaikan seluruh rangkaian uji kompetensi dengan hasil Terbaik.
+                    </p>
+                    <div className="space-y-2 bg-emerald-50/70 p-4 rounded-2xl border border-emerald-100 text-xs text-slate-700">
+                      <p className="font-bold text-emerald-900">Langkah Administrasi Selanjutnya:</p>
+                      <p>Anda diwajibkan hadir untuk proses <b>Orientasi Kerja & Penandatanganan Kontrak Kerja Resmi</b> yang akan dilaksanakan pada:</p>
+                      <div className="mt-2 pl-2 border-l-2 border-emerald-500 space-y-0.5 font-medium">
+                        <div>• Waktu: Akan dihubungi langsung oleh pihak HRD RS Arun Lhokseumawe</div>
+                        <div>• Tempat: Ruang SDM/HRD, Gedung Administrasi RS Arun Lhokseumawe</div>
+                        <div>• Pakaian: Pakaian Kerja Rapi (Kemeja formal & Bersepatu)</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {/* ========================================== */}
+              {/* KONDISI FINAL TAHAP 3: TIDAK LOLOS (GUGUR) */}
+              {/* ========================================== */}
+              {hasil.status_seleksi === 'STAGE_3_GUGUR' && (
+                <div className="bg-white border border-slate-200 rounded-3xl shadow-sm overflow-hidden print:hidden">
+                  <div className="bg-slate-900 p-4 text-white flex items-center gap-3">
+                    <XCircle className="w-6 h-6 text-rose-500 shrink-0" />
+                    <div>
+                      <p className="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Pengumuman Hasil Akhir (Final)</p>
+                      <h3 className="font-extrabold text-sm sm:text-base uppercase leading-none mt-0.5">Hasil Seleksi Belum Lulus</h3>
+                    </div>
+                  </div>
+                  <div className="p-6 text-center space-y-3">
+                    <p className="text-xs text-slate-500 max-w-sm mx-auto leading-relaxed">
+                      Terima kasih yang sebesar-besarnya atas komitmen dan performa luar biasa yang ditunjukkan oleh Saudara/i <b>{hasil.nama_lengkap}</b> hingga Tahap Wawancara Akhir Rekrutmen Staf Keuangan RS Arun Lhokseumawe.
+                    </p>
+                    <p className="text-xs text-slate-400 max-w-sm mx-auto leading-relaxed italic">
+                      Kuota formasi yang sangat terbatas membuat panitia harus mengambil keputusan sulit. Kualifikasi Anda sangat baik, namun belum dapat kami akomodir pada gelombang ini. Kami mendoakan yang terbaik bagi perjalanan karir profesional Anda di luar sana.
+                    </p>
+                  </div>
+                </div>
+              )}
+
             </div>
           )}
 
