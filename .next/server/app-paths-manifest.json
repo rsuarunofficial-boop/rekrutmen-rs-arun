@@ -9,5 +9,7 @@
   "/cek-status/page": "app/cek-status/page.js",
   "/favicon.ico/route": "app/favicon.ico/route.js",
   "/page": "app/page.js",
-  "/pendaftaran/page": "app/pendaftaran/page.js"
+  "/pendaftaran/page": "app/pendaftaran/page.js",
+  "/persyaratan/direktur-rs/page": "app/persyaratan/direktur-rs/page.js",
+  "/persyaratan/direktur-utama/page": "app/persyaratan/direktur-utama/page.js"
 }

@@ -9,5 +9,7 @@
   "/cek-status/page": "/cek-status",
   "/favicon.ico/route": "/favicon.ico",
   "/page": "/",
-  "/pendaftaran/page": "/pendaftaran"
+  "/pendaftaran/page": "/pendaftaran",
+  "/persyaratan/direktur-rs/page": "/persyaratan/direktur-rs",
+  "/persyaratan/direktur-utama/page": "/persyaratan/direktur-utama"
 }

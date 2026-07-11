@@ -88,6 +88,18 @@
       "regex": "^/pendaftaran(?:/)?$",
       "routeKeys": {},
       "namedRegex": "^/pendaftaran(?:/)?$"
+    },
+    {
+      "page": "/persyaratan/direktur-rs",
+      "regex": "^/persyaratan/direktur\\-rs(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/persyaratan/direktur\\-rs(?:/)?$"
+    },
+    {
+      "page": "/persyaratan/direktur-utama",
+      "regex": "^/persyaratan/direktur\\-utama(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/persyaratan/direktur\\-utama(?:/)?$"
     }
   ],
   "dataRoutes": [],

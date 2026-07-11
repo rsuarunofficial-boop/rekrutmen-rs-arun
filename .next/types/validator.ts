@@ -92,6 +92,24 @@ type RouteHandlerConfig<Route extends AppRouteHandlerRoutes = AppRouteHandlerRou
   type __Unused = __Check
 }
 
+// Validate ../../app/persyaratan/direktur-rs/page.tsx
+{
+  type __IsExpected<Specific extends AppPageConfig<"/persyaratan/direktur-rs">> = Specific
+  const handler = {} as typeof import("../../app/persyaratan/direktur-rs/page.js")
+  type __Check = __IsExpected<typeof handler>
+  // @ts-ignore
+  type __Unused = __Check
+}
+
+// Validate ../../app/persyaratan/direktur-utama/page.tsx
+{
+  type __IsExpected<Specific extends AppPageConfig<"/persyaratan/direktur-utama">> = Specific
+  const handler = {} as typeof import("../../app/persyaratan/direktur-utama/page.js")
+  type __Check = __IsExpected<typeof handler>
+  // @ts-ignore
+  type __Unused = __Check
+}
+
 // Validate ../../app/api/cek-kelulusan/route.ts
 {
   type __IsExpected<Specific extends RouteHandlerConfig<"/api/cek-kelulusan">> = Specific
