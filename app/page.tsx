@@ -43,19 +43,21 @@ export default function LandingPage() {
             Kami mengundang talenta terbaik untuk berkontribusi meningkatkan mutu pelayanan kesehatan yang prima, Islami, dan profesional bagi masyarakat.
           </p>
           <div className="pt-4 flex flex-col sm:flex-row justify-center items-center gap-3">
-            <Link 
-              href="/pendaftaran" 
-              className="w-full sm:w-auto bg-gradient-to-r from-emerald-600 to-teal-600 text-white font-bold py-3.5 px-8 rounded-2xl text-sm transition hover:shadow-lg hover:shadow-emerald-600/20 active:scale-[0.98] flex items-center justify-center gap-2 group"
+            <button
+              type="button"
+              disabled
+              className="w-full sm:w-auto bg-slate-300 text-slate-600 font-bold py-3.5 px-8 rounded-2xl text-sm transition cursor-not-allowed disabled:shadow-none flex items-center justify-center gap-2"
             >
-              Isi Formulir Pendaftaran <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
-            </Link>
-            <Link
-              href="/cek-status"
-              className="w-full sm:w-auto bg-gradient-to-r from-red-600 via-rose-500 to-red-500 text-white font-bold py-3.5 px-8 rounded-2xl text-sm transition hover:shadow-lg hover:shadow-red-600/20 active:scale-[0.98] flex items-center justify-center gap-2"
+              Formulir Pendaftaran <ArrowRight className="w-4 h-4" />
+            </button>
+            <button
+              type="button"
+              disabled
+              className="w-full sm:w-auto bg-slate-300 text-slate-600 font-bold py-3.5 px-8 rounded-2xl text-sm transition cursor-not-allowed disabled:shadow-none flex items-center justify-center gap-2"
             >
               <CheckCircle className="w-4 h-4" />
               Cek Kelulusan
-            </Link>
+            </button>
           </div>
         </section>
 
