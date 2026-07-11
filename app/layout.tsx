@@ -13,8 +13,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Rekrutmen Staf Keuangan RS Arun Lhokseumawe",
-  description: "Portal Resmi Pendaftaran Penerimaan Staf Keuangan Rumah Sakit Arun Lhokseumawe.",
+  title: "Portal Rekrutmen & Seleksi Pegawai | RS Arun Lhokseumawe",
+  description: "Portal resmi penerimaan pegawai dan seleksi terbuka PT Rumah Sakit Arun Medica & RS Arun Lhokseumawe. Dapatkan informasi syarat pendaftaran, jadwal seleksi, pengumuman hasil, dan status kelulusan secara transparan.",
 };
 
 export default function RootLayout({
