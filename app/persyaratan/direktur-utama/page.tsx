@@ -51,9 +51,9 @@ export default function PersyaratanDirekturUtama() {
             Seluruh dokumen persyaratan diantar secara langsung (fisik) ke alamat Sekretariat Panitia Seleksi berikut:
           </p>
           <div className="bg-white/80 p-4 rounded-2xl border border-amber-200/60 text-xs sm:text-sm font-semibold text-slate-800 space-y-1">
-            <p className="text-amber-900 font-extrabold uppercase">Kantor PT Pembangunan Lhokseumawe (PTPL Perseroda)</p>
+            <p className="text-amber-900 font-extrabold uppercase">Sekretariat / Bagian HRD Rumah Sakit Arun Lhokseumawe</p>
             <p className="text-slate-600 font-normal">
-              Jalan Iskandar Muda No. 18, Kampung Jawa Lama, Kecamatan Banda Sakti, Kota Lhokseumawe, Aceh.
+              Jl. Plaju, Kompleks Perumahan PT. PAG, Batuphat, Kota Lhokseumawe, Aceh.
             </p>
           </div>
         </div>
@@ -219,6 +219,15 @@ export default function PersyaratanDirekturUtama() {
                 <tr className="bg-slate-900 text-white font-bold"><td className="py-2.5 px-4 text-center">12</td><td className="py-2.5 px-4">Pengumuman Hasil Akhir</td><td className="py-2.5 px-4 text-right text-emerald-400">31 Juli 2026</td></tr>
               </tbody>
             </table>
+          </div>
+
+          <div className="rounded-2xl border border-amber-200/70 bg-amber-50/70 p-4 text-xs text-slate-700 space-y-2">
+            <p className="font-extrabold uppercase tracking-wide text-amber-900"><strong>Catatan:</strong></p>
+            <ol className="list-decimal pl-5 space-y-1 leading-relaxed">
+              <li>Jadwal dapat berubah sesuai kebutuhan Panitia Seleksi dan akan diumumkan melalui media resmi PT Rumah Sakit Arun Medica.</li>
+              <li>Peserta yang tidak hadir pada setiap tahapan seleksi tanpa alasan yang sah dinyatakan mengundurkan diri.</li>
+              <li>Seluruh tahapan seleksi dilaksanakan di PT. Rumah Sakit Arun Medica atau tempat lain yang ditetapkan oleh Panitia Seleksi.</li>
+            </ol>
           </div>
         </div>
 
