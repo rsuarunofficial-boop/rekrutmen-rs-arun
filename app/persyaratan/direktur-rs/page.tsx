@@ -2,9 +2,9 @@
 
 import Link from 'next/link';
 import { 
-  ArrowLeft, Building2, Briefcase, FileText, CheckCircle2, 
-  MapPin, Calendar, AlertCircle, ShieldCheck, UserCheck, 
-  FolderCheck, BookOpen, Clock, Layers, HelpCircle, Stethoscope 
+  ArrowLeft, Building2, FileText, CheckCircle2, 
+  MapPin, Calendar, ShieldCheck, UserCheck, 
+  FolderCheck, BookOpen, Stethoscope 
 } from 'lucide-react';
 
 export default function PersyaratanDirekturRS() {
@@ -39,6 +39,13 @@ export default function PersyaratanDirekturRS() {
           <p className="text-xs sm:text-sm text-slate-500 leading-relaxed">
             Pengumuman Persyaratan, Ketentuan Makalah, dan Jadwal Resmi Seleksi Terbuka Jabatan Direktur Rumah Sakit Arun Lhokseumawe.
           </p>
+          <Link
+            href="/pendaftaran"
+            className="inline-flex items-center gap-2 rounded-2xl bg-emerald-600 px-4 py-2.5 text-sm font-bold text-white shadow-sm transition hover:bg-emerald-700"
+          >
+            <FileText className="w-4 h-4" />
+            Daftar & Unggah Dokumen
+          </Link>
         </div>
 
         {/* Kotak Informasi Penyerahan Berkas Fisik */}
@@ -159,7 +166,7 @@ export default function PersyaratanDirekturRS() {
           <div className="bg-teal-50/70 border border-teal-100 p-4 rounded-2xl text-xs space-y-1">
             <span className="font-extrabold text-teal-900 uppercase">Materi Judul Makalah Resmi:</span>
             <p className="font-bold text-teal-800 text-sm italic leading-relaxed">
-              "Strategi Transformasi Rumah Sakit Arun Medica Menuju Rumah Sakit Unggul, Berdaya Saing, Berkelanjutan, Berorientasi pada Keselamatan Pasien dan Pelayanan Prima Tahun 2026-2031."
+              &quot;Strategi Transformasi Rumah Sakit Arun Medica Menuju Rumah Sakit Unggul, Berdaya Saing, Berkelanjutan, Berorientasi pada Keselamatan Pasien dan Pelayanan Prima Tahun 2026-2031.&quot;
             </p>
           </div>
 
@@ -252,6 +259,24 @@ export default function PersyaratanDirekturRS() {
             <li>Dokumen yang disampaikan menjadi milik Panitia Seleksi dan tidak dikembalikan.</li>
             <li>Apabila di kemudian hari ditemukan data yang tidak benar, peserta dinyatakan gugur atau pengangkatannya dapat dibatalkan.</li>
           </ol>
+        </div>
+
+        <div className="rounded-3xl border border-teal-200 bg-teal-50/80 p-5 shadow-sm">
+          <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+            <div>
+              <h3 className="text-sm font-extrabold uppercase tracking-wide text-teal-900">Pengumuman Resmi Seleksi</h3>
+              <p className="mt-1 text-xs text-teal-700">Klik tombol berikut untuk mengunduh dokumen pengumuman resmi dari Google Drive.</p>
+            </div>
+            <a
+              href="https://drive.google.com/file/d/1TqzhXPdHdbjB1B6AeuxCSCaTICRA2VoC/view?usp=sharing"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center gap-2 rounded-2xl bg-teal-600 px-4 py-2.5 text-sm font-bold text-white transition hover:bg-teal-700"
+            >
+              <FileText className="w-4 h-4" />
+              Unduh Pengumuman Resmi
+            </a>
+          </div>
         </div>
 
       </main>

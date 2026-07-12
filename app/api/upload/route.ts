@@ -13,67 +13,102 @@ export async function POST(request: Request) {
       fs.mkdirSync(uploadDir, { recursive: true });
     }
 
-    // List kunci dokumen wajib & opsional
-    const dokumenWajib = ['surat_lamaran', 'cv', 'ktp', 'pas_foto', 'ijazah', 'transkrip', 'kk'];
-    const dokumenOpsional = ['sertifikat_opsional', 'surat_pengalaman', 'npwp'];
-    
+    const posisiDilamar = (formData.get('posisiDilamar') as string) || 'Direktur Utama PT. Rumah Sakit Arun Medica';
+
+    // 1. Kategori Dokumen Wajib Umum (7 Dokumen)
+    const dokumenWajib = [
+      'surat_lamaran', 
+      'cv', 
+      'ktp', 
+      'pas_foto', 
+      'ijazah', 
+      'transkrip', 
+      'kk'
+    ];
+
+    // 2. Dokumen Khusus & Direksi Wajib (5 Dokumen)
+    const dokumenKhususWajib = [
+      'makalah',
+      'skck',
+      'surat_sehat',
+      'bebas_narkoba',
+      'pakta_integritas'
+    ];
+
+    // 3. Dokumen Opsional / Kondisional (4 Dokumen)
+    const dokumenOpsional = [
+      'sertifikat_opsional', 
+      'surat_pengalaman', 
+      'npwp',
+      'str' // Khusus STR diperiksa kondisional di bawah
+    ];
+
     const fileUrls: { [key: string]: string | null } = {};
 
-    // 1. Proses Dokumen Wajib
-    for (const key of dokumenWajib) {
-      const file = formData.get(key) as File | null;
-      
-      if (!file || file.size === 0) {
-        return NextResponse.json({ error: `Dokumen ${key.replace('_', ' ')} wajib diunggah.` }, { status: 400 });
-      }
-
-      // Validasi Ekstensi & Ukuran
+    // Helper Function untuk menyimpan file ke disk
+    const saveFileToDisk = async (file: File, key: string) => {
       const fileExt = file.name.split('.').pop()?.toLowerCase();
+      
+      // Validasi Ekstensi File
       if (!fileExt || !['pdf', 'jpg', 'jpeg', 'png'].includes(fileExt)) {
-        return NextResponse.json({ error: `Format file ${file.name} tidak valid (Harus PDF/JPG/PNG).` }, { status: 400 });
+        throw new Error(`Format file ${file.name} tidak valid (Harus PDF/JPG/PNG).`);
       }
-      if (file.size > 2 * 1024 * 1024) {
-        return NextResponse.json({ error: `Ukuran file ${file.name} melebihi batas 2MB.` }, { status: 400 });
+      
+      // Validasi Ukuran (Maksimal 5MB untuk mengakomodasi dokumen tebal/makalah)
+      if (file.size > 5 * 1024 * 1024) {
+        throw new Error(`Ukuran file ${file.name} melebihi batas 5MB.`);
       }
 
-      // Simpan File
+      // Simpan File ke /public/uploads/
       const uniqueName = `${Date.now()}-${key}-${Math.random().toString(36).substring(2, 7)}.${fileExt}`;
       const filePath = path.join(uploadDir, uniqueName);
       const bytes = await file.arrayBuffer();
       fs.writeFileSync(filePath, Buffer.from(bytes));
 
-      fileUrls[`file_${key}`] = `/uploads/${uniqueName}`;
+      return `/uploads/${uniqueName}`;
+    };
+
+    // --- PROSES DOKUMEN WAJIB UMUM ---
+    for (const key of dokumenWajib) {
+      const file = formData.get(key) as File | null;
+      if (!file || file.size === 0) {
+        return NextResponse.json({ error: `Dokumen ${key.replace(/_/g, ' ')} wajib diunggah.` }, { status: 400 });
+      }
+      fileUrls[`file_${key}`] = await saveFileToDisk(file, key);
     }
 
-    // 2. Proses Dokumen Opsional
+    // --- PROSES DOKUMEN KHUSUS WAJIB DIREKSI ---
+    for (const key of dokumenKhususWajib) {
+      const file = formData.get(key) as File | null;
+      if (!file || file.size === 0) {
+        return NextResponse.json({ error: `Dokumen ${key.replace(/_/g, ' ')} wajib diunggah.` }, { status: 400 });
+      }
+      fileUrls[`file_${key}`] = await saveFileToDisk(file, key);
+    }
+
+    // --- VALIDASI KHUSUS STR (Wajib jika melamar Direktur RS) ---
+    const fileSTR = formData.get('str') as File | null;
+    if (posisiDilamar === 'Direktur Rumah Sakit Arun Lhokseumawe') {
+      if (!fileSTR || fileSTR.size === 0) {
+        return NextResponse.json({ error: 'Fotokopi STR Aktif wajib diunggah untuk posisi Direktur Rumah Sakit.' }, { status: 400 });
+      }
+    }
+
+    // --- PROSES DOKUMEN OPSIONAL & KONDISIONAL ---
     for (const key of dokumenOpsional) {
       const file = formData.get(key) as File | null;
-      
       if (file && file.size > 0) {
-        const fileExt = file.name.split('.').pop()?.toLowerCase();
-        if (!fileExt || !['pdf', 'jpg', 'jpeg', 'png'].includes(fileExt)) {
-          return NextResponse.json({ error: `Format file opsional ${file.name} harus PDF/JPG/PNG.` }, { status: 400 });
-        }
-        if (file.size > 2 * 1024 * 1024) {
-          return NextResponse.json({ error: `Ukuran file opsional ${file.name} melebihi batas 2MB.` }, { status: 400 });
-        }
-
-        const uniqueName = `${Date.now()}-${key}-${Math.random().toString(36).substring(2, 7)}.${fileExt}`;
-        const filePath = path.join(uploadDir, uniqueName);
-        const bytes = await file.arrayBuffer();
-        fs.writeFileSync(filePath, Buffer.from(bytes));
-
-        fileUrls[`file_${key}`] = `/uploads/${uniqueName}`;
+        fileUrls[`file_${key}`] = await saveFileToDisk(file, key);
       } else {
         fileUrls[`file_${key}`] = null;
       }
     }
 
-    // 3. Ambil data teks pendaftaran dengan mapping nama key yang aman dari typo
+    // --- MAPPING DATA TEKS PENDAFTARAN ---
     const dataInput = {
       nik: formData.get('nik') as string,
       nama_lengkap: formData.get('namaLengkap') as string,
-      tempat_lahir: formData.get('tempatLahir') as string || formData.get('tempatLair') as string, // Cek kedua kemungkinan typo
+      tempat_lahir: (formData.get('tempatLahir') as string) || (formData.get('tempatLair') as string),
       tanggal_lahir: formData.get('tanggalLahir') as string,
       jenis_kelamin: formData.get('jenisKelamin') as string,
       agama: formData.get('agama') as string,
@@ -95,17 +130,22 @@ export async function POST(request: Request) {
       keahlian_dimiliki: formData.get('keahlianDimiliki') as string,
       penguasaan_komputer: formData.get('penguasaanKomputer') as string,
       sertifikasi_pelatihan: formData.get('sertifikasiPelatihan') as string,
-      posisi_dilamar: formData.get('posisiDilamar') || 'Staf Keuangan',
+      posisi_dilamar: posisiDilamar,
+      status: 'PROSES',
+      status_seleksi: 'STAGE_1_PROSES'
     };
 
-    // 4. Masukkan ke database Supabase
+    // --- INSERT KE DATABASE SUPABASE ---
     const { error: insertError } = await supabase
       .from('pelamar')
       .insert([{ ...dataInput, ...fileUrls }]);
 
-    if (insertError) throw insertError;
+    if (insertError) {
+      console.error('Database Insert Error:', insertError);
+      throw insertError;
+    }
 
-    return NextResponse.json({ success: true, message: 'Pendaftaran berhasil disimpan!' });
+    return NextResponse.json({ success: true, message: 'Pendaftaran dan seluruh berkas berhasil disimpan!' });
   } catch (error: any) {
     console.error('Error detail backend:', error);
     return NextResponse.json({ error: error.message || 'Terjadi kesalahan sistem internal.' }, { status: 500 });

@@ -43,21 +43,19 @@ export default function LandingPage() {
             Kami mengundang talenta terbaik untuk berkontribusi meningkatkan mutu pelayanan kesehatan yang prima, Islami, dan profesional bagi masyarakat.
           </p>
           <div className="pt-4 flex flex-col sm:flex-row justify-center items-center gap-3">
-            <button
-              type="button"
-              disabled
-              className="w-full sm:w-auto bg-slate-300 text-slate-600 font-bold py-3.5 px-8 rounded-2xl text-sm transition cursor-not-allowed disabled:shadow-none flex items-center justify-center gap-2"
+            <Link
+              href="/pendaftaran"
+              className="w-full sm:w-auto bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3.5 px-8 rounded-2xl text-sm transition shadow-sm flex items-center justify-center gap-2"
             >
               Formulir Pendaftaran <ArrowRight className="w-4 h-4" />
-            </button>
-            <button
-              type="button"
-              disabled
-              className="w-full sm:w-auto bg-slate-300 text-slate-600 font-bold py-3.5 px-8 rounded-2xl text-sm transition cursor-not-allowed disabled:shadow-none flex items-center justify-center gap-2"
+            </Link>
+            <Link
+              href="#"
+              className="w-full sm:w-auto bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold py-3.5 px-8 rounded-2xl text-sm transition shadow-sm flex items-center justify-center gap-2"
             >
               <CheckCircle className="w-4 h-4" />
               Cek Kelulusan
-            </button>
+            </Link>
           </div>
         </section>
 
