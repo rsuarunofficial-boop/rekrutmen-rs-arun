@@ -4,9 +4,8 @@ import { useEffect, useState } from 'react';
 import { supabase } from '@/lib/supabase';
 import { useRouter } from 'next/navigation';
 import { 
-  FileDown, RefreshCw, Check, X, Clock, Search, Briefcase, 
-  User, Eye, Mail, Phone, MapPin, Calendar, BookOpen, 
-  Award, ShieldAlert, FileText, Download 
+  RefreshCw, Check, X, Clock, Search, Briefcase, 
+  User, Eye, BookOpen, Award, ShieldAlert, FileText, Download 
 } from 'lucide-react';
 
 // Interface lengkap menyesuaikan database rekrutmen baru
@@ -47,6 +46,12 @@ interface Pelamar {
   file_sertifikat_opsional: string | null;
   file_surat_pengalaman: string | null;
   file_npwp: string | null;
+  file_str: string | null;
+  file_skck: string | null;
+  file_surat_sehat: string | null;
+  file_bebas_narkoba: string | null;
+  file_pakta_integritas: string | null;
+  file_makalah: string | null;
   status: string;
   status_seleksi: string;
 }
@@ -126,16 +131,31 @@ export default function AdminDashboard() {
     return matchSearch && matchPosisi && matchStatus;
   });
 
+  const safeCurrentPage = Math.min(currentPage, Math.max(1, Math.ceil(filteredPelamar.length / pageSize)));
+  const effectivePage = safeCurrentPage === 0 ? 1 : safeCurrentPage;
   const pageCount = Math.max(1, Math.ceil(filteredPelamar.length / pageSize));
-  const paginatedPelamar = filteredPelamar.slice((currentPage - 1) * pageSize, currentPage * pageSize);
-  const firstItem = filteredPelamar.length === 0 ? 0 : (currentPage - 1) * pageSize + 1;
-  const lastItem = Math.min(filteredPelamar.length, currentPage * pageSize);
+  const paginatedPelamar = filteredPelamar.slice((effectivePage - 1) * pageSize, effectivePage * pageSize);
+  const firstItem = filteredPelamar.length === 0 ? 0 : (effectivePage - 1) * pageSize + 1;
+  const lastItem = Math.min(filteredPelamar.length, effectivePage * pageSize);
 
-  useEffect(() => {
-    if (currentPage > pageCount) {
-      setCurrentPage(pageCount);
-    }
-  }, [currentPage, pageCount]);
+  const dokumenUnggahan = selectedPelamar ? [
+    { label: 'Surat Lamaran Kerja', url: selectedPelamar.file_surat_lamaran },
+    { label: 'Curriculum Vitae (CV)', url: selectedPelamar.file_cv },
+    { label: 'KTP Asli', url: selectedPelamar.file_ktp },
+    { label: 'Pas Foto Berwarna', url: selectedPelamar.file_pas_foto },
+    { label: 'Ijazah Terakhir', url: selectedPelamar.file_ijazah },
+    { label: 'Transkrip Nilai Akademik', url: selectedPelamar.file_transkrip },
+    { label: 'Kartu Keluarga (KK)', url: selectedPelamar.file_kk },
+    { label: 'Sertifikat Pelatihan (Opsional)', url: selectedPelamar.file_sertifikat_opsional },
+    { label: 'Surat Pengalaman Kerja (Opsional)', url: selectedPelamar.file_surat_pengalaman },
+    { label: 'Kartu NPWP (Opsional)', url: selectedPelamar.file_npwp },
+    { label: 'Fotokopi STR Aktif', url: selectedPelamar.file_str },
+    { label: 'SKCK Aktif', url: selectedPelamar.file_skck },
+    { label: 'Surat Keterangan Sehat', url: selectedPelamar.file_surat_sehat },
+    { label: 'Surat Bebas Narkoba', url: selectedPelamar.file_bebas_narkoba },
+    { label: 'Pakta Integritas', url: selectedPelamar.file_pakta_integritas },
+    { label: 'Dokumen Makalah Resmi', url: selectedPelamar.file_makalah },
+  ].filter((doc) => Boolean(doc.url)) : [];
 
   return (
     <div className="min-h-screen bg-slate-50 text-slate-800 p-4 sm:p-8 relative">
@@ -144,7 +164,7 @@ export default function AdminDashboard() {
         {/* Header Dashboard */}
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center bg-white p-6 rounded-2xl border border-slate-200/80 shadow-sm gap-4">
           <div>
-            <h1 className="text-xl font-bold text-slate-950">Dashboard Rekrutmen Staf Keuangan</h1>
+            <h1 className="text-xl font-bold text-slate-950">Dashboard Rekrutmen RS Arun Lhokseumawe</h1>
             <p className="text-slate-400 text-xs mt-0.5">Sistem Kendali Administrasi RS Arun Lhokseumawe</p>
           </div>
           
@@ -349,7 +369,7 @@ export default function AdminDashboard() {
                   <button
                     type="button"
                     onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
-                    disabled={currentPage === 1}
+                    disabled={effectivePage === 1}
                     className="rounded-xl border border-slate-200 bg-white px-3 py-2 text-xs font-semibold text-slate-700 transition disabled:cursor-not-allowed disabled:bg-slate-100 disabled:text-slate-400 hover:bg-slate-50"
                   >
                     Sebelumnya
@@ -357,7 +377,7 @@ export default function AdminDashboard() {
                   <button
                     type="button"
                     onClick={() => setCurrentPage((prev) => Math.min(prev + 1, pageCount))}
-                    disabled={currentPage === pageCount}
+                    disabled={effectivePage === pageCount}
                     className="rounded-xl border border-slate-200 bg-slate-900 px-3 py-2 text-xs font-semibold text-white transition disabled:cursor-not-allowed disabled:bg-slate-400 hover:bg-slate-800"
                   >
                     Selanjutnya
@@ -461,25 +481,11 @@ export default function AdminDashboard() {
               <div className="space-y-3">
                 <h3 className="text-xs font-bold text-emerald-700 flex items-center gap-1.5 uppercase border-b border-slate-100 pb-1"><FileText className="w-4 h-4" /> E. Unduh Dokumen Pendukung</h3>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                  
-                  {/* Fungsi pembantu render tombol download */}
-                  {[
-                    { label: 'Surat Lamaran Kerja', url: selectedPelamar.file_surat_lamaran },
-                    { label: 'Curriculum Vitae (CV)', url: selectedPelamar.file_cv },
-                    { label: 'KTP Asli', url: selectedPelamar.file_ktp },
-                    { label: 'Pas Foto Berwarna', url: selectedPelamar.file_pas_foto },
-                    { label: 'Ijazah Terakhir', url: selectedPelamar.file_ijazah },
-                    { label: 'Transkrip Nilai Akademik', url: selectedPelamar.file_transkrip },
-                    { label: 'Kartu Keluarga (KK)', url: selectedPelamar.file_kk },
-                    { label: 'Sertifikat Pelatihan (Opsional)', url: selectedPelamar.file_sertifikat_opsional },
-                    { label: 'Surat Pengalaman Kerja (Opsional)', url: selectedPelamar.file_surat_pengalaman },
-                    { label: 'Kartu NPWP (Opsional)', url: selectedPelamar.file_npwp },
-                  ].map((doc, idx) => {
-                    if (!doc.url) return null;
-                    return (
+                  {dokumenUnggahan.length > 0 ? (
+                    dokumenUnggahan.map((doc, idx) => (
                       <a 
-                        key={idx}
-                        href={doc.url}
+                        key={`${doc.label}-${idx}`}
+                        href={doc.url || '#'}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="flex items-center justify-between p-2.5 bg-white border border-slate-200 rounded-xl hover:border-emerald-500 hover:bg-emerald-50/20 transition group text-xs shadow-xs"
@@ -487,8 +493,10 @@ export default function AdminDashboard() {
                         <span className="font-medium text-slate-700 group-hover:text-emerald-900 truncate max-w-[200px]">{doc.label}</span>
                         <Download className="w-3.5 h-3.5 text-slate-400 group-hover:text-emerald-600 shrink-0" />
                       </a>
-                    );
-                  })}
+                    ))
+                  ) : (
+                    <p className="text-xs text-slate-400 italic col-span-full">Belum ada dokumen yang diunggah untuk pelamar ini.</p>
+                  )}
                 </div>
               </div>
             </div>
