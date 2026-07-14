@@ -36,6 +36,7 @@ interface Pelamar {
   keahlian_dimiliki: string | null;
   penguasaan_komputer: string | null;
   sertifikasi_pelatihan: string | null;
+  posisi_dilamar: string;
   file_surat_lamaran: string;
   file_cv: string;
   file_ktp: string;
@@ -424,6 +425,7 @@ export default function AdminDashboard() {
                   <div><p className="text-[10px] font-semibold text-slate-400 uppercase">Agama</p><p className="font-medium">{selectedPelamar.agama}</p></div>
                   <div><p className="text-[10px] font-semibold text-slate-400 uppercase">Status Pernikahan</p><p className="font-medium">{selectedPelamar.status_pernikahan}</p></div>
                   <div><p className="text-[10px] font-semibold text-slate-400 uppercase">Kontak WhatsApp</p><p className="font-medium text-emerald-700 font-semibold">{selectedPelamar.whatsapp}</p></div>
+                  <div><p className="text-[10px] font-semibold text-slate-400 uppercase">Posisi yang Dilamar</p><p className="font-bold text-slate-900">{selectedPelamar.posisi_dilamar}</p></div>
                 </div>
                 <div className="space-y-2 bg-slate-50 p-3 rounded-xl border border-slate-200/40">
                   <div><p className="text-[10px] font-semibold text-slate-400 uppercase">Email</p><p className="font-medium">{selectedPelamar.email}</p></div>
