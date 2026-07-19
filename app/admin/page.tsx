@@ -82,7 +82,7 @@ export default function AdminDashboard() {
       const total = data.length;
       const lolos = data.filter(p => p.status === 'Lolos').length;
       const tolak = data.filter(p => p.status === 'Tolak').length;
-      const pending = data.filter(p => p.status === 'Pending').length;
+      const pending = data.filter(p => p.status === 'PROSES').length;
       setStats({ total, lolos, tolak, pending });
     }
     setLoading(false);
@@ -281,7 +281,7 @@ export default function AdminDashboard() {
               <option value="">Semua Status Verifikasi</option>
               <option value="Lolos">Berkas Valid</option>
               <option value="Tolak">Ditolak</option>
-              <option value="Pending">Evaluasi</option>
+              <option value="PROSES">Evaluasi</option>
               <option value="STAGE_2_LOLOS">Lulus CAT</option>
             </select>
           </div>
@@ -331,7 +331,7 @@ export default function AdminDashboard() {
                         )}
                       </td>
                       <td className="py-4 px-6">
-                        {p.status === 'Pending' && <span className="inline-flex items-center gap-1 text-xs text-amber-600 font-semibold bg-amber-50 px-2 py-0.5 rounded-md border border-amber-100"><Clock className="w-3 h-3" /> Evaluasi</span>}
+                        {p.status === 'PROSES' && <span className="inline-flex items-center gap-1 text-xs text-amber-600 font-semibold bg-amber-50 px-2 py-0.5 rounded-md border border-amber-100"><Clock className="w-3 h-3" /> Evaluasi</span>}
                         {p.status === 'Lolos' && <span className="inline-flex items-center gap-1 text-xs text-emerald-600 font-semibold bg-emerald-50 px-2 py-0.5 rounded-md border border-emerald-100"><Check className="w-3 h-3" /> Berkas Valid</span>}
                         {p.status === 'Tolak' && <span className="inline-flex items-center gap-1 text-xs text-rose-600 font-semibold bg-rose-50 px-2 py-0.5 rounded-md border border-rose-100"><X className="w-3 h-3" /> Ditolak</span>}
                       </td>
