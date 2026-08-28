@@ -35,6 +35,10 @@ export default function PendaftaranDireksi() {
   const [errorMsg, setErrorMsg] = useState('');
   const [setuju, setSetuju] = useState(false);
 
+  // Toggle pendaftaran: false = ditutup (masa pendaftaran berakhir)
+  // Ubah menjadi `true` jika ingin membuka kembali pendaftaran.
+  const isRegistrationOpen = false;
+
   // State Form Data
   const [form, setForm] = useState<FormState>({
     nik: '', namaLengkap: '', tempatLahir: '', tanggalLahir: '', jenisKelamin: '', agama: '',
@@ -169,6 +173,12 @@ export default function PendaftaranDireksi() {
             <div className="bg-rose-50 text-rose-600 p-3 rounded-xl flex items-center gap-2 text-xs border border-rose-100">
               <AlertCircle className="w-4 h-4 shrink-0" />
               <span>{errorMsg}</span>
+            </div>
+          )}
+
+          {!isRegistrationOpen && (
+            <div className="bg-slate-100 text-slate-700 p-3 rounded-xl text-sm border border-slate-200">
+              Masa pendaftaran telah berakhir. Pengiriman pendaftaran dinonaktifkan.
             </div>
           )}
 
@@ -333,7 +343,7 @@ export default function PendaftaranDireksi() {
           </div>
 
           {/* Button Submit */}
-          <button type="submit" disabled={loading || !setuju} className="w-full bg-emerald-600 hover:bg-emerald-700 disabled:bg-slate-300 text-white font-bold py-3.5 px-4 rounded-xl transition flex items-center justify-center gap-2 shadow-sm text-sm">
+          <button type="submit" disabled={loading || !setuju || !isRegistrationOpen} className="w-full bg-emerald-600 hover:bg-emerald-700 disabled:bg-slate-300 text-white font-bold py-3.5 px-4 rounded-xl transition flex items-center justify-center gap-2 shadow-sm text-sm">
             {loading ? <><Loader2 className="w-4 h-4 animate-spin" /><span>Mengunggah Berkas & Data Direksi...</span></> : <span>Kirim Pendaftaran Direksi Online</span>}
           </button>
         </form>
